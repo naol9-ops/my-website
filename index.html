@@ -47,6 +47,33 @@
 <footer>
   <p>© 2026 Naol Melesse</p>
 </footer>
+<script src="script.js"></script>
+  <div class="card">
+  <h2>Quick Quiz</h2>
 
+  <form id="quizForm">
+
+    <p>1. What is 5 + 3?</p>
+    <label><input type="radio" name="q1" value="a"> 7</label><br>
+    <label><input type="radio" name="q1" value="b"> 8</label><br>
+    <label><input type="radio" name="q1" value="c"> 9</label>
+
+    <p>2. What is 10 - 4?</p>
+    <label><input type="radio" name="q2" value="a"> 6</label><br>
+    <label><input type="radio" name="q2" value="b"> 5</label><br>
+    <label><input type="radio" name="q2" value="c"> 7</label>
+
+    <p>3. What is 3 × 2?</p>
+    <label><input type="radio" name="q3" value="a"> 5</label><br>
+    <label><input type="radio" name="q3" value="b"> 6</label><br>
+    <label><input type="radio" name="q3" value="c"> 7</label>
+
+    <br><br>
+    <button type="button" onclick="checkQuiz()">Submit</button>
+
+  </form>
+
+  <h3 id="result"></h3>
+</div>
 </body>
 </html>
