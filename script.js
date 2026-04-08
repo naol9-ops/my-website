@@ -29,3 +29,8 @@ function checkQuiz() {
   document.getElementById("result").innerText =
     "Your Score: " + score + "/3";
 }
+if (score === 3) {
+  result.style.color = "green";
+} else {
+  result.style.color = "red";
+}
