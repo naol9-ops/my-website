@@ -17,64 +17,35 @@ function checkQuiz() {
     q2: form.q2.value,
     q3: form.q3.value
   };
-
-  // Check answers
-  for (let key in answers) {
-    if (userAnswers[key] === answers[key]) {
-      score++;
-    }
-  }
-
-  // Show result
-  document.getElementById("result").innerText =
-    "Your Score: " + score + "/3";
-}
-if (score === 3) {
-  result.style.color = "green";
-} else {
-  result.style.color = "red";
-}
 function checkQuiz() {
   let score = 0;
 
   const answers = {
-    q1: "b",
-    q2: "b",
-    q3: "b",
-    q4: "b",
-    q5: "b"
-  };
-
-  const explanations = {
-    q1: "2x + 3 = 11 → 2x = 8 → x = 4",
-    q2: "5² = 25 and 3³ = 27 → 25 + 27 = 52",
-    q3: "Triangle angles = 180° → 90 + 45 = 135 → x = 45°",
-    q4: "Derivative of x² is 2x",
-    q5: "log₁₀(100) = 2 because 10² = 100"
+    q1: "b", // 4
+    q2: "b", // 25 + 27 = 52
+    q3: "b", // 45
+    q4: "b", // 2x
+    q5: "b"  // log10(100) = 2
   };
 
   const form = document.getElementById("quizForm");
   const result = document.getElementById("result");
-  const answersBox = document.getElementById("answers");
-
-  let output = "<h3>Correct Answers & Explanations:</h3>";
 
   for (let key in answers) {
-    let userAnswer = form[key].value;
-
-    if (userAnswer === answers[key]) {
+    if (form[key].value === answers[key]) {
       score++;
-      output += `<p style="color:green;">✔ ${key.toUpperCase()}: Correct</p>`;
-    } else {
-      output += `<p style="color:red;">✘ ${key.toUpperCase()}: Wrong</p>`;
     }
-
-    output += `<p>${explanations[key]}</p><br>`;
   }
 
-  // Score message
-  result.innerText = "Your Score: " + score + "/5";
-
-  // Show answers
-  answersBox.innerHTML = output;
+  // Feedback system
+  if (score === 5) {
+    result.style.color = "green";
+    result.innerText = "Excellent! Score: 5/5 🔥";
+  } else if (score >= 3) {
+    result.style.color = "orange";
+    result.innerText = "Good! Score: " + score + "/5";
+  } else {
+    result.style.color = "red";
+    result.innerText = "Try again! Score: " + score + "/5";
+  }
 }
