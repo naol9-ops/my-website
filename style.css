@@ -85,3 +85,14 @@ footer {
   background: #0f172a;
   color: white;
 }
+section {
+  padding: 80px 20px;  /* top & bottom = 80px, left & right = 20px */
+}
+
+.hero {
+  padding: 100px 20px; /* more padding for hero section to make it prominent */
+}
+
+footer {
+  padding: 40px 20px; /* footer slightly taller */
+}
