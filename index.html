@@ -113,5 +113,41 @@
   <h3 id="result"></h3>
   <div id="answers"></div>
 </div>
+    <script>
+function checkQuiz() {
+  let score = 0;
+
+  const answers = {
+    q1: "b", // 4
+    q2: "b", // 25 + 27 = 52
+    q3: "b", // 45
+    q4: "b", // 2x
+    q5: "b"  // log10(100) = 2
+  };
+
+  const form = document.getElementById("quizForm");
+  const result = document.getElementById("result");
+
+  for (let key in answers) {
+    if (form[key].value === answers[key]) {
+      score++;
+    }
+  }
+
+  // Feedback system
+  if (score === 5) {
+    result.style.color = "green";
+    result.innerText = "Excellent! Score: 5/5 🔥";
+  } else if (score >= 3) {
+    result.style.color = "orange";
+    result.innerText = "Good! Score: " + score + "/5";
+  } else {
+    result.style.color = "red";
+    result.innerText = "Try again! Score: " + score + "/5";
+  }
+}
+</script>
+
+</body>
 </body>
 </html>
