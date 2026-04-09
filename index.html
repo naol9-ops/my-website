@@ -109,7 +109,8 @@
     <button type="button" onclick="checkQuiz()">Submit</button>
 <h3 id="timer">Time Left: 60s</h3>
   </form>
-
+  <h3 id="result"></h3>
+  <div id="answers"></div>
 
 </div>
 <script>
@@ -130,8 +131,7 @@ function startTimer() {
     }
   }, 1000);
 }
-    <h3 id="result"></h3>
-  <div id="answers"></div>
+  
 function checkQuiz() {
   clearInterval(timer);
 
