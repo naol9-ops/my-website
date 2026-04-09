@@ -68,3 +68,49 @@ function startTimer() {
   }, 1000);
 }
 </script>
+<script>
+// TIMER FOR QUIZ 2
+let timeLeft2 = 45;
+let timer2;
+
+function startTimer2() {
+  const timerDisplay = document.getElementById("timer2");
+
+  timer2 = setInterval(() => {
+    timeLeft2--;
+    timerDisplay.innerText = "Time Left: " + timeLeft2 + "s";
+
+    if (timeLeft2 <= 0) {
+      clearInterval(timer2);
+      timerDisplay.innerText = "Time is up! ⏰";
+      checkQuiz2();
+    }
+  }, 1000);
+}
+
+// QUIZ CHECK FUNCTION
+function checkQuiz2() {
+  clearInterval(timer2);
+
+  let score = 0;
+
+  const answers = {
+    q1: "b", // 12
+    q2: "a", // 4x
+    q3: "b", // 56
+    q4: "a", // 3.14
+    q5: "a"  // 10 ÷ 2 + 3 = 8
+  };
+
+  const form = document.getElementById("quizForm2");
+  const result = document.getElementById("result2");
+
+  for (let key in answers) {
+    if (form[key].value === answers[key]) {
+      score++;
+    }
+  }
+
+  result.innerText = "Your Score: " + score + "/5";
+}
+</script>
