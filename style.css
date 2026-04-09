@@ -96,3 +96,8 @@ section {
 footer {
   padding: 40px 20px; /* footer slightly taller */
 }
+#timer2 {
+  color: #7c3aed;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
