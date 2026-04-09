@@ -113,47 +113,54 @@
   <h3 id="result"></h3>
   <div id="answers"></div>
 </div>
-<body onload="startTimer()">
-<div class="card">
-  <h2>Advanced Quiz 2</h2>
+<script>
+let timeLeft = 60;
+let timer;
 
-  <h3 id="timer2">Time Left: 45s</h3>
+// START TIMER
+function startTimer() {
+  const timerDisplay = document.getElementById("timer");
 
-  <form id="quizForm2">
+  timer = setInterval(() => {
+    timeLeft--;
+    timerDisplay.innerText = "Time Left: " + timeLeft + "s";
 
-    <p>1. What is √144?</p>
-    <label><input type="radio" name="q1" value="a"> 10</label>
-    <label><input type="radio" name="q1" value="b"> 12</label>
-    <label><input type="radio" name="q1" value="c"> 14</label>
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      timerDisplay.innerText = "Time is up!";
+      checkQuiz();
+    }
+  }, 1000);
+}
 
-    <p>2. Simplify: 3x + 2x - x</p>
-    <label><input type="radio" name="q2" value="a"> 4x</label>
-    <label><input type="radio" name="q2" value="b"> 5x</label>
-    <label><input type="radio" name="q2" value="c"> 6x</label>
+// CHECK QUIZ
+function checkQuiz() {
+  clearInterval(timer); // stop timer
 
-    <p>3. What is 7 × 8?</p>
-    <label><input type="radio" name="q3" value="a"> 54</label>
-    <label><input type="radio" name="q3" value="b"> 56</label>
-    <label><input type="radio" name="q3" value="c"> 64</label>
+  let score = 0;
 
-    <p>4. What is the value of π (approx)?</p>
-    <label><input type="radio" name="q4" value="a"> 3.14</label>
-    <label><input type="radio" name="q4" value="b"> 2.17</label>
-    <label><input type="radio" name="q4" value="c"> 3.50</label>
+  const answers = {
+    q1: "b",
+    q2: "b",
+    q3: "b",
+    q4: "b",
+    q5: "b"
+  };
 
-    <p>5. Solve: 10 ÷ 2 + 3</p>
-    <label><input type="radio" name="q5" value="a"> 8</label>
-    <label><input type="radio" name="q5" value="b"> 10</label>
-    <label><input type="radio" name="q5" value="c"> 13</label>
+  const form = document.getElementById("quizForm");
+  const result = document.getElementById("result");
 
-    <br><br>
-    <button type="button" onclick="checkQuiz2()">Submit</button>
+  for (let key in answers) {
+    let selected = form.querySelector(`input[name="${key}"]:checked`);
 
-  </form>
+    if (selected && selected.value === answers[key]) {
+      score++;
+    }
+  }
 
-  <h3 id="result2"></h3>
-</div>
-<body onload="startTimer(); startTimer2();">
-</body>
+  result.innerText = "Your Score: " + score + "/5";
+}
+</script>
+    <body onload="startTimer()">
 </body>
 </html>
