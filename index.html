@@ -117,7 +117,6 @@
 let timeLeft = 60;
 let timer;
 
-// START TIMER
 function startTimer() {
   const timerDisplay = document.getElementById("timer");
 
@@ -127,7 +126,12 @@ function startTimer() {
 
     if (timeLeft <= 0) {
       clearInterval(timer);
-      timerDisplay.innerText = "Time is up!";
+      timerDisplay.innerText = "Time is up! ⏰";
+      checkQuiz(); // auto submit
+    }
+  }, 1000);
+}
+</script>
       checkQuiz();
 <script>
 function checkQuiz() {
