@@ -49,3 +49,22 @@ function checkQuiz() {
     result.innerText = "Try again! Score: " + score + "/5";
   }
 }
+<script>
+let timeLeft = 60;
+let timer;
+
+function startTimer() {
+  const timerDisplay = document.getElementById("timer");
+
+  timer = setInterval(() => {
+    timeLeft--;
+    timerDisplay.innerText = "Time Left: " + timeLeft + "s";
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      timerDisplay.innerText = "Time is up! ⏰";
+      checkQuiz(); // auto submit
+    }
+  }, 1000);
+}
+</script>
