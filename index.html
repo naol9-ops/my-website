@@ -149,7 +149,7 @@ function checkQuiz() {
   const result = document.getElementById("result");
 
   for (let key in answers) {
-    let selected = form.querySelector(`input[name="${key}"]:checked`);
+  let selected = document.querySelector(`input[name="${key}"]:checked`);
 
     if (selected && selected.value === answers[key]) {
       score++;
