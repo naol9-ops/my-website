@@ -160,5 +160,50 @@ function checkQuiz() {
 }
 </script>
     <body onload="startTimer()">
+      <div class="card">
+  <h2>Hard Quiz (Advanced Level)</h2>
+
+  <h3 id="timer">Time Left: 90s</h3>
+
+  <form id="quizForm">
+
+    <p>1. Solve: 3x - 5 = 16</p>
+    <label><input type="radio" name="q1" value="a"> 5</label>
+    <label><input type="radio" name="q1" value="b"> 7</label>
+    <label><input type="radio" name="q1" value="c"> 9</label>
+
+    <p>2. What is the value of 2³ × 3²?</p>
+    <label><input type="radio" name="q2" value="a"> 36</label>
+    <label><input type="radio" name="q2" value="b"> 72</label>
+    <label><input type="radio" name="q2" value="c"> 48</label>
+
+    <p>3. If sin(θ) = 1, then θ = ?</p>
+    <label><input type="radio" name="q3" value="a"> 0°</label>
+    <label><input type="radio" name="q3" value="b"> 90°</label>
+    <label><input type="radio" name="q3" value="c"> 180°</label>
+
+    <p>4. What is the derivative of 3x²?</p>
+    <label><input type="radio" name="q4" value="a"> 6x</label>
+    <label><input type="radio" name="q4" value="b"> 3x</label>
+    <label><input type="radio" name="q4" value="c"> x²</label>
+
+    <p>5. Evaluate: log₂(8)</p>
+    <label><input type="radio" name="q5" value="a"> 2</label>
+    <label><input type="radio" name="q5" value="b"> 3</label>
+    <label><input type="radio" name="q5" value="c"> 4</label>
+
+    <p>6. If a² - b² = ?</p>
+    <label><input type="radio" name="q6" value="a"> (a-b)(a+b)</label>
+    <label><input type="radio" name="q6" value="b"> (a+b)²</label>
+    <label><input type="radio" name="q6" value="c"> a² + b²</label>
+
+    <br><br>
+    <button type="button" onclick="checkQuiz()">Submit</button>
+
+  </form>
+
+  <h3 id="result"></h3>
+</div>
+<body onload="startTimer()">
 </body>
 </html>
