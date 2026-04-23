@@ -160,6 +160,160 @@ function checkQuiz() {
 }
 </script>
     <body onload="startTimer()">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Difficult Quiz with Timer & Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .quiz-box {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      width: 450px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .timer {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #f87171;
+    }
+    .question {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      background: #3b82f6;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    .result {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="quiz-box" id="quizBox">
+  <div class="timer" id="timer">Time: 20</div>
+  <div class="question" id="question"></div>
+  <div id="answers"></div>
+  <button onclick="nextQuestion()">Next</button>
+</div>
+
+<script>
+const quiz = [
+  { q: "Which law explains why planets move in elliptical orbits?", options: ["Newton's First Law", "Kepler's First Law", "Ohm's Law", "Hooke's Law"], answer: "Kepler's First Law" },
+  { q: "What is the oxidation state of sulfur in H2SO4?", options: ["+2", "+4", "+6", "-2"], answer: "+6" },
+  { q: "Which data structure uses FIFO principle?", options: ["Stack", "Queue", "Tree", "Graph"], answer: "Queue" },
+  { q: "What is the derivative of sin(x)?", options: ["cos(x)", "-cos(x)", "-sin(x)", "tan(x)"], answer: "cos(x)" },
+  { q: "Which element has the highest electronegativity?", options: ["Oxygen", "Fluorine", "Chlorine", "Nitrogen"], answer: "Fluorine" },
+  { q: "In computer science, what does HTTP stand for?", options: ["HyperText Transfer Protocol", "High Transfer Text Protocol", "Hyperlink Transfer Process", "Home Tool Transfer Protocol"], answer: "HyperText Transfer Protocol" },
+  { q: "Which organelle is responsible for ATP production?", options: ["Nucleus", "Mitochondria", "Ribosome", "Golgi Apparatus"], answer: "Mitochondria" }
+];
+
+let index = 0;
+let score = 0;
+let time = 20;
+let timer;
+let userAnswers = [];
+
+function loadQuestion() {
+  if (index >= quiz.length) {
+    showResult();
+    return;
+  }
+
+  document.getElementById("question").innerText = quiz[index].q;
+  let answersHTML = "";
+
+  quiz[index].options.forEach(option => {
+    answersHTML += `<label><input type='radio' name='answer' value='${option}'> ${option}</label><br>`;
+  });
+
+  document.getElementById("answers").innerHTML = answersHTML;
+}
+
+function nextQuestion() {
+  const selected = document.querySelector("input[name='answer']:checked");
+  let userAns = selected ? selected.value : "No Answer";
+
+  userAnswers.push(userAns);
+
+  if (selected && selected.value === quiz[index].answer) {
+    score++;
+  }
+
+  index++;
+  resetTimer();
+  loadQuestion();
+}
+
+function startTimer() {
+  timer = setInterval(() => {
+    time--;
+    document.getElementById("timer").innerText = "Time: " + time;
+
+    if (time === 0) {
+      nextQuestion();
+    }
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timer);
+  time = 20;
+  startTimer();
+}
+
+function showResult() {
+  clearInterval(timer);
+  let resultHTML = `<div class='result'><h2>Final Score: ${score}/${quiz.length}</h2>`;
+
+  if (score === quiz.length) {
+    resultHTML += "<p>Excellent! 🔥</p>";
+  } else if (score >= quiz.length/2) {
+    resultHTML += "<p>Good job 👍</p>";
+  } else {
+    resultHTML += "<p>Keep practicing 💡</p>";
+  }
+
+  resultHTML += "<hr><h3>Review:</h3>";
+
+  quiz.forEach((q, i) => {
+    resultHTML += `<p><b>Q${i+1}:</b> ${q.q}<br>
+    Your Answer: ${userAnswers[i]}<br>
+    Correct Answer: ${q.answer}</p>`;
+  });
+
+  resultHTML += "</div>";
+
+  document.getElementById("quizBox").innerHTML = resultHTML;
+}
+
+loadQuestion();
+startTimer();
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
