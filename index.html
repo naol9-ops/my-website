@@ -160,6 +160,135 @@ function checkQuiz() {
 }
 </script>
     <body onload="startTimer()">
-  
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hard Quiz with Timer</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.quiz-container {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+}
+h2 { text-align: center; }
+.timer {
+  font-size: 20px;
+  color: #ff4444;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.question {
+  margin: 15px 0;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #00aaff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+button:hover {
+  background: #0088cc;
+}
+.result {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 10px;
+}
+.answers {
+  margin-top: 10px;
+  background: #333;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h2>Hard Quiz</h2>
+  <div class="timer">Time Left: <span id="time">60</span>s</div>
+
+  <div id="quiz">
+    <div class="question">
+      <p>1. What is the derivative of x²?</p>
+      <label><input type="radio" name="q1" value="a"> x</label><br>
+      <label><input type="radio" name="q1" value="b"> 2x</label><br>
+      <label><input type="radio" name="q1" value="c"> x²</label>
+    </div>
+
+    <div class="question">
+      <p>2. What is the capital of Canada?</p>
+      <label><input type="radio" name="q2" value="a"> Toronto</label><br>
+      <label><input type="radio" name="q2" value="b"> Ottawa</label><br>
+      <label><input type="radio" name="q2" value="c"> Vancouver</label>
+    </div>
+
+    <div class="question">
+      <p>3. H₂SO₄ is known as?</p>
+      <label><input type="radio" name="q3" value="a"> Hydrochloric acid</label><br>
+      <label><input type="radio" name="q3" value="b"> Sulfuric acid</label><br>
+      <label><input type="radio" name="q3" value="c"> Nitric acid</label>
+    </div>
+
+    <button onclick="submitQuiz()">Submit</button>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <div class="answers" id="answers">
+    <h3>Correct Answers</h3>
+    <p>1. 2x</p>
+    <p>2. Ottawa</p>
+    <p>3. Sulfuric acid</p>
+  </div>
+</div>
+
+<script>
+let time = 60;
+let timer = setInterval(function() {
+  time--;
+  document.getElementById('time').innerText = time;
+  if (time <= 0) {
+    clearInterval(timer);
+    submitQuiz();
+  }
+}, 1000);
+
+function submitQuiz() {
+  let score = 0;
+
+  if (document.querySelector('input[name="q1"]:checked')?.value === 'b') score++;
+  if (document.querySelector('input[name="q2"]:checked')?.value === 'b') score++;
+  if (document.querySelector('input[name="q3"]:checked')?.value === 'b') score++;
+
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').innerHTML = `Your Score: ${score}/3`;
+
+  document.getElementById('answers').style.display = 'block';
+
+  clearInterval(timer);
+}
+</script>
+
+</body>
+</html>
+
 </body>
 </html>
