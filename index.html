@@ -160,6 +160,151 @@ function checkQuiz() {
 }
 </script>
     <body onload="startTimer()">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Game</title>
+<style>
+body{
+  font-family:Arial;
+  background:#0b0b0b;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.game{
+  background:#1c1c1c;
+  padding:20px;
+  width:450px;
+  border-radius:12px;
+}
+.header{
+  text-align:center;
+}
+.timer{
+  color:#ff4d4d;
+  font-size:18px;
+}
+.xp{
+  color:#00ff99;
+  margin-top:5px;
+}
+.question{
+  margin:15px 0;
+}
+button{
+  width:100%;
+  padding:10px;
+  background:#00aaff;
+  border:none;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{background:#0088cc;}
+.screen{
+  display:none;
+  text-align:center;
+}
+.active{display:block;}
+</style>
+</head>
+<body>
+
+<div class="game">
+  <div class="header">
+    <h2>Quiz Battle Game</h2>
+    <div class="timer">Time: <span id="time">60</span>s</div>
+    <div class="xp">XP: <span id="xp">0</span></div>
+    <div>Level: <span id="level">1</span></div>
+  </div>
+
+  <div id="screen1" class="screen active">
+    <div class="question">
+      <p>1. 5 + 7 × 2 = ?</p>
+      <label><input type="radio" name="q1" value="a">19</label><br>
+      <label><input type="radio" name="q1" value="b">24</label><br>
+      <label><input type="radio" name="q1" value="c">17</label>
+    </div>
+    <button onclick="next(1)">Next Level</button>
+  </div>
+
+  <div id="screen2" class="screen">
+    <div class="question">
+      <p>2. H2O is?</p>
+      <label><input type="radio" name="q2" value="a">Oxygen</label><br>
+      <label><input type="radio" name="q2" value="b">Water</label><br>
+      <label><input type="radio" name="q2" value="c">Hydrogen</label>
+    </div>
+    <button onclick="next(2)">Next Level</button>
+  </div>
+
+  <div id="screen3" class="screen">
+    <div class="question">
+      <p>3. Capital of Ethiopia?</p>
+      <label><input type="radio" name="q3" value="a">Addis Ababa</label><br>
+      <label><input type="radio" name="q3" value="b">Nairobi</label><br>
+      <label><input type="radio" name="q3" value="c">Khartoum</label>
+    </div>
+    <button onclick="finish()">Finish Game</button>
+  </div>
+
+  <div id="result" class="screen"></div>
+</div>
+
+<script>
+let time = 60;
+let xp = 0;
+let level = 1;
+
+const timer = setInterval(()=>{
+  time--;
+  document.getElementById("time").innerText = time;
+  if(time<=0){finish();}
+},1000);
+
+function addXP(val){
+  xp += val;
+  document.getElementById("xp").innerText = xp;
+}
+
+function next(n){
+  if(n===1){
+    let q1 = document.querySelector('input[name="q1"]:checked');
+    if(q1 && q1.value=="b") addXP(10);
+    level=2;
+  }
+  if(n===2){
+    let q2 = document.querySelector('input[name="q2"]:checked');
+    if(q2 && q2.value=="b") addXP(10);
+    level=3;
+  }
+
+  document.getElementById("level").innerText = level;
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("screen"+(n+1)).classList.add("active");
+}
+
+function finish(){
+  let q3 = document.querySelector('input[name="q3"]:checked');
+  if(q3 && q3.value=="a") addXP(10);
+
+  clearInterval(timer);
+
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("result").classList.add("active");
+
+  document.getElementById("result").innerHTML =
+  `<h2>Game Over</h2><p>Your XP: ${xp}</p><p>Level Reached: ${level}</p>`;
+}
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
