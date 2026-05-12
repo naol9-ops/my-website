@@ -160,117 +160,113 @@ function checkQuiz() {
 }
 </script>
     <body onload="startTimer()">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Difficult Quiz</title>
-<style>
-body {
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
-  text-align: center;
-}
-.quiz-box {
-  background: #1e293b;
-  padding: 20px;
-  margin: 50px auto;
-  width: 60%;
-  border-radius: 10px;
-}
-button {
-  padding: 10px 20px;
-  margin-top: 20px;
-  background: #22c55e;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-.timer {
-  font-size: 20px;
-  color: #facc15;
-}
-</style>
-</head>
-
-<body>
-
-<div class="quiz-box">
+<div id="quiz-box" style="background:#111;color:white;padding:20px;border-radius:10px;margin:20px;">
   <h2>Difficult Quiz</h2>
-  <div class="timer">Time Left: <span id="time">60</span>s</div>
 
-  <form id="quizForm">
+  <p>Time Left: <span id="time">60</span> seconds</p>
 
-    <p>1. What is the derivative of x² sin(x)?</p>
-    <label><input type="radio" name="q1" value="a"> 2x sin(x)</label><br>
-    <label><input type="radio" name="q1" value="b"> x² cos(x)</label><br>
-    <label><input type="radio" name="q1" value="c"> 2x sin(x) + x² cos(x)</label><br>
+  <div id="question"></div>
 
-    <p>2. Which number is irrational?</p>
-    <label><input type="radio" name="q2" value="a"> √49</label><br>
-    <label><input type="radio" name="q2" value="b"> √2</label><br>
-    <label><input type="radio" name="q2" value="c"> 0.25</label><br>
+  <div id="answers"></div>
 
-    <p>3. Who developed the theory of relativity?</p>
-    <label><input type="radio" name="q3" value="a"> Isaac Newton</label><br>
-    <label><input type="radio" name="q3" value="b"> Albert Einstein</label><br>
-    <label><input type="radio" name="q3" value="c"> Nikola Tesla</label><br>
+  <button onclick="nextQuestion()">Next</button>
 
-    <p>4. What is the capital of Australia?</p>
-    <label><input type="radio" name="q4" value="a"> Sydney</label><br>
-    <label><input type="radio" name="q4" value="b"> Canberra</label><br>
-    <label><input type="radio" name="q4" value="c"> Melbourne</label><br>
-
-    <p>5. What is the chemical symbol for Gold?</p>
-    <label><input type="radio" name="q5" value="a"> Au</label><br>
-    <label><input type="radio" name="q5" value="b"> Ag</label><br>
-    <label><input type="radio" name="q5" value="c"> Pb</label><br>
-
-    <button type="button" onclick="submitQuiz()">Submit</button>
-  </form>
-
-  <h3 id="result"></h3>
+  <h3 id="score"></h3>
 </div>
 
 <script>
-let timeLeft = 60;
-let timer = setInterval(function() {
-  timeLeft--;
-  document.getElementById("time").innerText = timeLeft;
-
-  if (timeLeft <= 0) {
-    clearInterval(timer);
-    submitQuiz();
-  }
-}, 1000);
-
-function submitQuiz() {
-  clearInterval(timer);
-
-  let answers = {
-    q1: "c",
-    q2: "b",
-    q3: "b",
-    q4: "b",
-    q5: "a"
-  };
-
-  let score = 0;
-  let form = document.forms["quizForm"];
-
-  for (let q in answers) {
-    if (form[q].value === answers[q]) {
-      score++;
-    }
-  }
-
-  document.getElementById("result").innerText =
-    "Your Score: " + score + "/5";
+const quiz = [
+{
+q:"What is 15 × 12 ?",
+a:["120","180","150","170"],
+correct:"180"
+},
+{
+q:"Capital city of Canada?",
+a:["Toronto","Ottawa","Vancouver","Montreal"],
+correct:"Ottawa"
+},
+{
+q:"Who developed relativity?",
+a:["Newton","Einstein","Tesla","Darwin"],
+correct:"Einstein"
+},
+{
+q:"Square root of 256?",
+a:["14","15","16","18"],
+correct:"16"
+},
+{
+q:"Chemical symbol of Gold?",
+a:["Ag","Gd","Au","Go"],
+correct:"Au"
 }
-</script>
+];
 
-</body>
-</html>
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+
+document.getElementById("question").innerHTML =
+quiz[current].q;
+
+let answersHTML = "";
+
+quiz[current].a.forEach(answer => {
+answersHTML += `
+<button onclick="checkAnswer('${answer}')"
+style="display:block;margin:10px;padding:10px;">
+${answer}
+</button>
+`;
+});
+
+document.getElementById("answers").innerHTML =
+answersHTML;
+}
+
+function checkAnswer(answer) {
+
+if(answer === quiz[current].correct){
+score++;
+}
+
+nextQuestion();
+}
+
+function nextQuestion() {
+
+current++;
+
+if(current < quiz.length){
+loadQuestion();
+}
+else{
+document.getElementById("quiz-box").innerHTML =
+"<h2>Your Score: " + score + "/" + quiz.length + "</h2>";
+}
+}
+
+let time = 60;
+
+let timer = setInterval(() => {
+
+time--;
+
+document.getElementById("time").innerText = time;
+
+if(time <= 0){
+
+clearInterval(timer);
+
+document.getElementById("quiz-box").innerHTML =
+"<h2>Time Up! Score: " + score + "</h2>";
+}
+
+},1000);
+
+loadQuestion();
+</script>
 </body>
 </html>
